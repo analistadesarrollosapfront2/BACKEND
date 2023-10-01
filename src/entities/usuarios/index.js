@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const usuariosController = require('./controllers/usuariosController');
-console.log("INDEX DE USUARIOS");
-router.get('/', usuariosController.getAll);
-// router.get('/detalles', usuariosController.getDetalles);
-// router.post('/', usuariosController.create);
+const librosController = require('./Controllers/loginController');
+
+console.log("INDEX DE LOGIN");
+router.get('/', librosController.getAll);
 
 module.exports = router;
