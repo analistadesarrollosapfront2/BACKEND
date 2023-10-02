@@ -1,8 +1,16 @@
+const dbController = require('../../../../DBController');
+
 class LibrosController {
-  getAll(req, res) {
-    console.log("Por fin está llegando al controlador de libros");
-    // Aquí puedes realizar operaciones relacionadas con la entidad de libros
-    res.send('Obteniendo todos los libros');
+  async get(req, res) {
+    const sql = 'SELECT * FROM libreriautl.libros';
+
+    try {
+      const results = await dbController.executeQuery(sql);
+      res.status(200).json(results);
+    } catch (error) {
+      console.error('Error al obtener libros:', error);
+      res.status(500).json({ message: 'Error al obtener libros' });
+    }
   }
 }
 

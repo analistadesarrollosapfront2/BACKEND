@@ -6,6 +6,7 @@ console.log("INDEX DE LOGIN");
 // router.get('/', loginController.getAll);
 router.get('/', async (req, res) => {
     try {
+      // console.log(req.body);
       await loginController.getAll(req, res);
     } catch (error) {
       console.error('Error in route handler:', error);
