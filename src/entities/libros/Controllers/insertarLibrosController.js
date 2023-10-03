@@ -3,9 +3,10 @@ const dbController = require('../../../../DBController');
 class InsertarLibrosController {
   async post(req, res) {
     const { title, language, genre, editorial, status, file } = req.body;
-
+    // console.log(file.length);
+    // console.log(file);
     const sql = `
-      INSERT INTO libreriautl.libros (title, language, genre, editorial, STATUS, FILE)
+      INSERT INTO libreriautl.libros (title, language, genre, editorial, status, file)
       VALUES (?, ?, ?, ?, ?, ?)
     `;
     const values = [title, language, genre, editorial, status, file];

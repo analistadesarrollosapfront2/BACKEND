@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const InsertarLibrosController = require('./Controllers/insertarLibrosController');
-const librosController = require('./Controllers/librosController');
-const editarLibrosController = require('./Controllers/editarLibrosController');
-const eliminarLibrosController = require('./Controllers/eliminarLibrosController');
+const InsertarUniversidadesController = require('./Controllers/insertarUniversidadesController');
+const UniversidadesController = require('./Controllers/UniversidadesController');
+const editarUniversidadesController = require('./Controllers/editarUniversidadesController');
+const eliminarUniversidadesController = require('./Controllers/eliminarUniversidadesController');
 
+// console.log("INDEX DE UNIVERSIDADES");
 router.post('/', async (req, res) => {
     try {
-      // console.log("Vammos a insertar");
-      await InsertarLibrosController.post(req, res);
+      await InsertarUniversidadesController.post(req, res);
     } catch (error) {
       console.error('Error in route handler:', error);
       res.status(500).send('Internal Server Error');
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 
 router.post('/editar', async (req, res) => {
     try {
-      await editarLibrosController.post(req, res);
+      await editarUniversidadesController.post(req, res);
     } catch (error) {
       console.error('Error in route handler:', error);
       res.status(500).send('Internal Server Error');
@@ -28,7 +28,7 @@ router.post('/eliminar', async (req, res) => {
     try {
       // console.log("Vamos a eliminar ");
       // console.log(req.body);
-      await eliminarLibrosController.post(req, res);
+      await eliminarUniversidadesController.post(req, res);
     } catch (error) {
       console.error('Error in route handler:', error);
       res.status(500).send('Internal Server Error');
@@ -37,7 +37,7 @@ router.post('/eliminar', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-      await librosController.get(req, res);
+      await UniversidadesController.get(req, res);
     } catch (error) {
       console.error('Error in route handler:', error);
       res.status(500).send('Internal Server Error');

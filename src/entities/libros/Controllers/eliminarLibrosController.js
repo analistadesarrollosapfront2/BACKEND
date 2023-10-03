@@ -1,9 +1,9 @@
 const dbController = require('../../../../DBController');
 
 class EliminarLibrosController {
-  async delete(req, res) {
+  async post(req, res) {
     const { id } = req.body;
-
+    // console.log(req.body);
     const sql = `
       DELETE FROM libreriautl.libros
       WHERE id = ?
