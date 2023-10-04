@@ -2,13 +2,13 @@ const dbController = require('../../../../DBController');
 
 class InsertarUniversidadesController {
   async post(req, res) {
-    const { protocolo, nombre, ip, base, ruta } = req.body;
+    const { protocolo, nombre, ip, puerto, base, ruta } = req.body;
  
     const sql = `
-      INSERT INTO libreriautl.universidades (protocolo, nombre, ip, base, ruta)
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO libreriautl.universidades (protocolo, nombre, ip, puerto, base, ruta)
+      VALUES (?, ?, ?, ?, ?, ?)
     `;
-    const values = [protocolo, nombre, ip, base, ruta];
+    const values = [protocolo, nombre, ip, puerto, base, ruta];
 
     try {
       const result = await dbController.executeQuery(sql, values);

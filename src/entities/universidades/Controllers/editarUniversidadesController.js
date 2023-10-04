@@ -2,14 +2,14 @@ const dbController = require('../../../../DBController');
 
 class EditarUniversidadesController {
   async post(req, res) {
-    const { id, protocolo, nombre, ip, base, ruta } = req.body;
+    const { id, protocolo, nombre, ip, puerto, base, ruta } = req.body;
 
     const sql = `
       UPDATE libreriautl.universidades
-      SET protocolo = ?, nombre = ?, ip = ?, base = ?, ruta = ?
+      SET protocolo = ?, nombre = ?, ip = ?, puerto = ?, base = ?, ruta = ?
       WHERE id = ?
     `;
-    const values = [ protocolo, nombre, ip, base, ruta, id];
+    const values = [ protocolo, nombre, ip, puerto, base, ruta, id];
 
     try {
       const result = await dbController.executeQuery(sql, values);
