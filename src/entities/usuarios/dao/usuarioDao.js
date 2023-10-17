@@ -1,7 +1,7 @@
 const dbController = require('../../../../DBController');
-conts 
-class usuariosController {
-  async get(req, res) {
+class usuariosDao {
+
+  async esteesunafuncion() {
     /*const usuario = req.body.usuario;
     const contrasena = req.body.contrasena;
     const sql = `SELECT * FROM libreriautl.users WHERE user = ? AND password = ?`;
@@ -20,4 +20,4 @@ class usuariosController {
     }*/
   }
 }
-module.exports = new usuariosController();
+module.exports = new usuariosDao();

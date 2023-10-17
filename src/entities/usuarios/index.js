@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const librosController = require('./Controllers/loginController');
+const usuariosController = require('./Controllers/usuariosController');
 
 // console.log("INDEX DE LOGIN");
-router.get('/', librosController.getAll);
+router.get('/', usuariosController.get);
 
 module.exports = router;
