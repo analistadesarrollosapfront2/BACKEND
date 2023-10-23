@@ -13,18 +13,28 @@ class loginAministradorController {
         res.status(201).json(result);
 
       }else{
-        
-        if(result.data.user_type !== 1){
+
+        if(result.data.status === 0){
           res.status(200).json(
             {
               status: 0,
-              message: "Este usuario no es administrador"
+              message: "Usuario inactivo"
             }
           );    
         }else{
 
-          res.status(200).json(result);
+          if(result.data.user_type !== 1){
+            res.status(200).json(
+              {
+                status: 0,
+                message: "Este usuario no es administrador"
+              }
+            );    
+          }else{
 
+            res.status(200).json(result);
+
+          }
         } 
         
       }

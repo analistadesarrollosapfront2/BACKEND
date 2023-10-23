@@ -13,17 +13,27 @@ class loginVendedorController {
 
       }else{
         
-        if(result.data.user_type !== 3){
+        if(result.data.status === 0){
           res.status(200).json(
             {
               status: 0,
-              message: "Este usuario no es vendedor"
+              message: "Usuario inactivo"
             }
           );    
         }else{
 
-          res.status(200).json(result);
+          if(result.data.user_type !== 3){
+            res.status(200).json(
+              {
+                status: 0,
+                message: "Este usuario no es vendedor"
+              }
+            );    
+          }else{
 
+            res.status(200).json(result);
+
+          }
         } 
         
       }

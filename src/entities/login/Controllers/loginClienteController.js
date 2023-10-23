@@ -13,19 +13,29 @@ class loginClienteController {
 
       }else{
         
-        if(result.data.user_type !== 2){
+        if(result.data.status === 0){
           res.status(200).json(
             {
               status: 0,
-              message: "Este usuario no es cliente"
+              message: "Usuario inactivo"
             }
           );    
         }else{
 
-          res.status(200).json(result);
+          if(result.data.user_type !== 2){
+            res.status(200).json(
+              {
+                status: 0,
+                message: "Este usuario no es cliente"
+              }
+            );    
+          }else{
 
+            res.status(200).json(result);
+
+          }
         } 
-        
+
       }
 
     } catch (error) {

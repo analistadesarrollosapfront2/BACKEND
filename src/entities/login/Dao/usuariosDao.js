@@ -2,9 +2,9 @@ const dbController = require('../../../../DBController');
 class usuariosDao {
 
 async buscarPorCorreo(usuario) {
-    const { email, password } = usuario;
-    const sql = 'SELECT * FROM libreriautl.usersgeneral WHERE email = ? AND password = ?;';
-    const values = [email, password];
+    const { email } = usuario;
+    const sql = 'SELECT * FROM libreriautl.usersgeneral WHERE email = ?;';
+    const values = [email];
     try {
         const results = await dbController.executeQuery(sql, values);
         
