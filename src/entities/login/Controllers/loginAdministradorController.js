@@ -4,13 +4,34 @@ class loginAministradorController {
   async get(req, res) {
 
     try {
-
-      const usuario = req.body.usuario;
+      
+      const usuario = req.body;
       const result = await usuariosDao.buscarPorCorreo(usuario);
       
+      if(result.status === -1){
+        
+        res.status(201).json(result);
+
+      }else{
+        
+        if(result.data.user_type !== 1){
+          res.status(200).json(
+            {
+              status: 0,
+              message: "Este usuario no es administrador"
+            }
+          );    
+        }else{
+
+          res.status(200).json(result);
+
+        } 
+        
+      }
+
     } catch (error) {
       console.error('Error executing query:', error);
-      res.status(500).send('Error executing query');
+      res.status(500).send('Error al consultar el usuario');
     }
     
   }

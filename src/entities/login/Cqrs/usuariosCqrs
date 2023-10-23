@@ -1,0 +1,31 @@
+const usuariosDao = require('../Dao/usuariosDao');
+
+class usuariosCqrs {
+
+    async insertarCliente(usuario) {
+    
+        try {
+            
+            let result;
+            if(!usuario.email || !usuario.password){
+
+                return {
+                    status: 0,
+                    message: !usuario.password? "ingrese una contraseña": "ingrese un correo electronico"
+                };
+
+            }else{
+
+                usuario.status = 1;
+                return result = await usuariosDao.insertarUsuario(usuario);
+                
+                
+            }
+            
+        } catch (error) {
+            console.error('Error executing query:', error);
+            return error;
+        }
+    }
+}
+module.exports = new usuariosCqrs();

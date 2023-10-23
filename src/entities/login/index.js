@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const loginController = require('./Controllers/loginController');
+const insertarController = require('./Controllers/insertarController');
 const loginAministradorController = require('./Controllers/loginAdministradorController');
 const loginVendedorController = require('./Controllers/loginVendedorController');
 const loginClienteController = require('./Controllers/loginClienteController');
@@ -8,8 +9,16 @@ const loginClienteController = require('./Controllers/loginClienteController');
 console.log("ACCEDIENDO AL INDEX DE LOGIN");
 router.post('/', async (req, res) => {
     try {
-      // console.log(req.body);
       await loginController.post(req, res);
+    } catch (error) {
+      console.error('Error in route handler:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+  router.post('/insertar', async (req, res) => {
+    try {
+      await insertarController.post(req, res);
     } catch (error) {
       console.error('Error in route handler:', error);
       res.status(500).send('Internal Server Error');
