@@ -4,7 +4,7 @@ class loginVendedorController {
     
     try {
       
-      const usuario = req.body;
+      const usuario = req.query;
       const result = await usuariosDao.buscarPorCorreo(usuario);
       
       if(result.status === -1){
