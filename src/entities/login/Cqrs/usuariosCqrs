@@ -2,23 +2,51 @@ const usuariosDao = require('../Dao/usuariosDao');
 
 class usuariosCqrs {
 
-    async insertarCliente(usuario) {
+    async insertarTiposDeUSuario(usuario) {
     
         try {
             
             let result;
             if(!usuario.email || !usuario.password){
 
-                return {
+                let resp =  {
                     status: 0,
                     message: !usuario.password? "ingrese una contraseña": "ingrese un correo electronico"
                 };
 
+                console.log(resp);
+                return resp;
             }else{
 
-                usuario.status = 1;
-                return result = await usuariosDao.insertarUsuario(usuario);
-                
+                let status = 1;
+                let user_type;
+                if(usuario.type.toLowerCase() === "administrador"){ 
+                    user_type = 1;
+                }
+                if(usuario.type.toLowerCase() === "cliente"){ 
+                    user_type = 2;
+                }
+                if(usuario.type.toLowerCase() === "vendedor"){ 
+                    user_type = 3;
+                }
+                if(user_type){
+                    let user = {
+                        name: usuario.name,
+                        password: usuario.password,
+                        email: usuario.email,
+                        user_type: user_type,
+                        status: status,
+                    }
+                    let result = await usuariosDao.insertarUsuario(user);
+                    if (result.status === 1 ){ 
+                        result.message = usuario.type + " " + result.message;
+                    }
+
+                    return result
+                    
+                }else{
+                    return {status:0,message:"Este tipo de usuario no existe"}
+                }
                 
             }
             
@@ -26,6 +54,60 @@ class usuariosCqrs {
             console.error('Error executing query:', error);
             return error;
         }
+    }
+
+    async actualizarTiposDeUSuario(usuario) {
+    
+        try {
+            
+            let result;
+            if(!usuario.email || !usuario.password){
+
+                let resp =  {
+                    status: 0,
+                    message: !usuario.password? "ingrese una contraseña": "ingrese un correo electronico"
+                };
+
+                console.log(resp);
+                return resp;
+            }else{
+
+                const resultBuscar = await usuariosDao.buscarPorCorreo({email: usuario.email});
+                
+                const resultaActualizar = await usuariosDao.actualizaUsuario(usuario);
+
+                if(resultaActualizar.status === 1){
+                    let msj;
+
+                    let arrayUserType = [" Administrador "," Cliente "," Vendedro "];
+
+                    if(resultBuscar.data.user_type === usuario.user_type){
+                        
+                        msj = arrayUserType[resultBuscar.data.user_type-1] + resultaActualizar.message;
+                        
+                    }else{
+                        
+                        msj = "El usuario cambio de"+arrayUserType[resultBuscar.data.user_type-1]+"a"+arrayUserType[usuario.user_type-1];  
+                        
+                    }
+
+                    resultaActualizar.message = msj;
+                    
+                }
+
+                return resultaActualizar;
+                
+            }
+            
+        } catch (error) {
+            console.error('Error executing query:', error);
+            return error;
+        }
+    }
+
+    async restablecerContrasenia(usuario) {
+    
+        
     }
 }
 module.exports = new usuariosCqrs();

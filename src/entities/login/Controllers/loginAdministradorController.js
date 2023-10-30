@@ -6,6 +6,7 @@ class loginAministradorController {
     try {
       
       const usuario = req.query;
+      console.log(usuario);
       const result = await usuariosDao.buscarPorCorreo(usuario);
       
       if(result.status === -1){

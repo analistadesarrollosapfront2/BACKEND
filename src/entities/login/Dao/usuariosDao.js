@@ -30,21 +30,39 @@ async buscarPorCorreo(usuario) {
     }
 
     async insertarUsuario(usuario) {
+        // console.log("USUARIO EN EL DAO");
+        // console.log(usuario);
         const { name, password, email, user_type, status } = usuario;
         const sql = 'INSERT INTO libreriautl.usersgeneral (name, password, email, user_type, status) VALUES (?, ?, ?, ?, ?);';
         const values = [name, password, email, user_type, status];
         try {
             const results = await dbController.executeQuery(sql, values);
-            console.log(results);    
+            return { status: 1, message: "registrado exitosamente"};
+            
+        } catch (error) {
+            // console.error('Error executing query:', error);
+            if(error.code === "ER_DUP_ENTRY") return{status: -1, message: "Registro duplicado"}
+            return error;
+        }
+    }
+
+    async actualizaUsuario(usuario) {
+        const { name, password, email, user_type, status } = usuario;
+        const sql = "UPDATE libreriautl.usersgeneral SET name = ?, password = ?, email = ?, user_type = ?, status = ? WHERE email = ?;";
+        const values = [name, password, email, user_type, status, email];
+        try {
+            const results = await dbController.executeQuery(sql, values);
+               
             return {
                 status: 1,
-                message: "Registro exitoso"
+                message: "actualizado con exito"
             }    
             
         } catch (error) {
-            console.error('Error executing query:', error);
-            if(error.code === "ER_DUP_ENTRY") return{status: -1, message: "Registro duplicado"}
-            return error;
+            return {
+                status: -1,
+                message: "Ocurrio un erro al actualizar"
+            }  
         }
     }
 }
