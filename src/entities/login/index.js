@@ -34,6 +34,15 @@ console.log("ACCEDIENDO AL INDEX DE LOGIN");
       res.status(500).send('Internal Server Error');
     }
   });
+  //ACTUALIZAR RECUPERAR CONTRASEÑA
+  router.post('/recuperar', async (req, res) => {
+    try {
+      await insertarController.recuperar(req, res);
+    } catch (error) {
+      console.error('Error in route handler:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });  
   //AUTENTICAR ADMINISTRADOR
   router.get('/administrador', async (req, res) => {
     try {

@@ -1,5 +1,5 @@
 const usuariosCqrs = require('../Cqrs/usuariosCqrs');
-const emailService = require('../appService/emailService');
+const usuariosDao = require('../Dao/usuariosDao');
 
 class usuariosAppservice {
     async registroUsuario(usuario) {
@@ -31,42 +31,41 @@ class usuariosAppservice {
     }
     //pendiente
     async recuperarContrasenia(email) {
-  
+        
         try {
-      
-            // const usuario = req.query;
-            const result = await usuariosDao.buscarPorCorreo(email);
             
-            if(result.status === -1){
+            const result = await usuariosDao.buscarPorCorreo(email);
+            console.log(result);
+            // if(result.status === -1){
       
-              res.status(201).json(result);
+            //   res.status(201).json(result);
       
-            }else{
+            // }else{
               
-              if(result.data.status === 0){
-                res.status(200).json(
-                  {
-                    status: 0,
-                    message: "Usuario inactivo"
-                  }
-                );    
-              }else{
+            //   if(result.data.status === 0){
+            //     res.status(200).json(
+            //       {
+            //         status: 0,
+            //         message: "Usuario inactivo"
+            //       }
+            //     );    
+            //   }else{
       
-                if(result.data.user_type !== 2){
-                  res.status(200).json(
-                    {
-                      status: 0,
-                      message: "Este usuario no es cliente"
-                    }
-                  );    
-                }else{
+            //     if(result.data.user_type !== 2){
+            //       res.status(200).json(
+            //         {
+            //           status: 0,
+            //           message: "Este usuario no es cliente"
+            //         }
+            //       );    
+            //     }else{
       
-                  res.status(200).json(result);
+            //       res.status(200).json(result);
       
-                }
-              } 
+            //     }
+            //   } 
       
-            }
+            // }
       
           } catch (error) {
             console.error('Error executing query:', error);

@@ -30,5 +30,20 @@ class insertarController {
         res.status(500).send('Error al actualizar usuario');
       }
   }
+
+  async recuperar(req, res) {
+    try {
+      // console.log(req.body);
+        const resultaRecuperar = await usuariosAppService.recuperarContrasenia(req.body);
+
+        // const resultEmail = await emailService.enviarCorreo(req.body.email, resultaActualizar.message);
+
+        // res.status(200).json(resultEmail);
+
+      } catch (error) {
+        console.error('Error executing query:', error);
+        res.status(500).send('Error al actualizar usuario');
+      }
+  }
 }
 module.exports = new insertarController();
