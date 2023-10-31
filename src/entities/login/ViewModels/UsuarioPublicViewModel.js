@@ -1,7 +1,7 @@
 const usuariosCqrs = require('../Cqrs/usuariosCqrs');
 
 
-class UsuarioPublicViewModel {
+class usuarioPublicViewModel {
     
     userid;
     username;
@@ -9,8 +9,14 @@ class UsuarioPublicViewModel {
     constructor(puserid, pusername){
         this.userid = puserid;
         this.username = pusername;
+        console.log(this.userid);
+        console.log(this.username);
+        return[
+            this.userid,
+            this.username
+        ];
     }
 
 
  }
-module.exports = new UsuarioPublicViewModel();
+module.exports = new usuarioPublicViewModel();

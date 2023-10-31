@@ -10,37 +10,37 @@ class loginAministradorController {
       console.log(usuario);
       // const result = await usuariosDao.buscarPorCorreo(usuario);
       const result = await usuariosAppservice.buscarUsuarioPorCorreo(usuario);
-      
-      if(result.status === -1){
+      res.status(201).json(result);
+      // if(result.status === -1){
         
-        res.status(201).json(result);
+      //   res.status(201).json(result);
 
-      }else{
+      // }else{
 
-        if(result.data.status === 0){
-          res.status(200).json(
-            {
-              status: 0,
-              message: "Usuario inactivo"
-            }
-          );    
-        }else{
+      //   if(result.data.status === 0){
+      //     res.status(200).json(
+      //       {
+      //         status: 0,
+      //         message: "Usuario inactivo"
+      //       }
+      //     );    
+      //   }else{
 
-          if(result.data.user_type !== 1){
-            res.status(200).json(
-              {
-                status: 0,
-                message: "Este usuario no es administrador"
-              }
-            );    
-          }else{
+      //     if(result.data.user_type !== 1){
+      //       res.status(200).json(
+      //         {
+      //           status: 0,
+      //           message: "Este usuario no es administrador"
+      //         }
+      //       );    
+      //     }else{
 
-            res.status(200).json(result);
+      //       res.status(200).json(result);
 
-          }
-        } 
+      //     }
+      //   } 
         
-      }
+      // }
 
     } catch (error) {
       console.error('Error executing query:', error);

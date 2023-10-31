@@ -1,5 +1,6 @@
 const usuariosCqrs = require('../Cqrs/usuariosCqrs');
 const usuariosDao = require('../Dao/usuariosDao');
+const UsuarioPublicViewModel = require('../ViewModels/UsuarioPublicViewModel');
 
 class usuariosAppservice {
     async registroUsuario(usuario) {
@@ -83,7 +84,10 @@ class usuariosAppservice {
     async buscarUsuarioPorCorreo(usuario) {
   
       const resultBucarUsuario = await usuariosDao.buscarPorCorreo(usuario);
-      return resultBucarUsuario;
+      console.log(resultBucarUsuario);
+      let resultViewModel = new UsuarioPublicViewModel.constructor(resultBucarUsuario.data.user_id,resultBucarUsuario.data.name);
+      // console.log(resultViewModel);
+      return resultViewModel;
 
     }
  }
