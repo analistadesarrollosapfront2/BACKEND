@@ -1,4 +1,5 @@
 const usuariosDao = require('../Dao/usuariosDao');
+const usuariosAppservice = require('../appService/usuariosAppservice');
 
 class loginAministradorController {
   async get(req, res) {
@@ -7,7 +8,8 @@ class loginAministradorController {
       
       const usuario = req.query;
       console.log(usuario);
-      const result = await usuariosDao.buscarPorCorreo(usuario);
+      // const result = await usuariosDao.buscarPorCorreo(usuario);
+      const result = await usuariosAppservice.buscarUsuarioPorCorreo(usuario);
       
       if(result.status === -1){
         

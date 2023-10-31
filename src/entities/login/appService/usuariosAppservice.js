@@ -78,6 +78,13 @@ class usuariosAppservice {
   
     const result = await usuariosCqrs.restablecerContrasenia(usuario);
 
-  }
+    }
+
+    async buscarUsuarioPorCorreo(usuario) {
+  
+      const resultBucarUsuario = await usuariosDao.buscarPorCorreo(usuario);
+      return resultBucarUsuario;
+
+    }
  }
 module.exports = new usuariosAppservice();
