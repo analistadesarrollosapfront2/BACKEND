@@ -5,18 +5,18 @@ class usuarioPublicViewModel {
     
     userid;
     username;
+    usertype;
 
-    constructor(puserid, pusername){
+    constructor(puserid, pusername, pusertype){
         this.userid = puserid;
         this.username = pusername;
-        console.log(this.userid);
-        console.log(this.username);
+        this.usertype = pusertype;
         return[
             this.userid,
-            this.username
+            this.username,
+            this.usertype
         ];
     }
-
 
  }
 module.exports = new usuarioPublicViewModel();

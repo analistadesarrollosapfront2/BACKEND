@@ -83,11 +83,8 @@ class usuariosAppservice {
 
     async buscarUsuarioPorCorreo(usuario) {
   
-      const resultBucarUsuario = await usuariosDao.buscarPorCorreo(usuario);
-      console.log(resultBucarUsuario);
-      let resultViewModel = new UsuarioPublicViewModel.constructor(resultBucarUsuario.data.user_id,resultBucarUsuario.data.name);
-      // console.log(resultViewModel);
-      return resultViewModel;
+      const resultBucarUsuario = await usuariosCqrs.validarUsuario(usuario);
+      return resultBucarUsuario;
 
     }
  }

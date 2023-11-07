@@ -2,27 +2,17 @@ const dbController = require('../../../../DBController');
 class usuariosDao {
 
 async buscarPorCorreo(usuario) {
-    const { email } = usuario;
-    const sql = 'SELECT * FROM libreriautl.usersgeneral WHERE email = ?;';
-    const values = [email];
+    
+    const { email, contrasena } = usuario;
+
+    const sql = 'SELECT * FROM libreriautl.usersgeneral WHERE email = ? AND PASSWORD = ?;';
+    const values = [email, contrasena];
     try {
+        // console.log(values);
         const results = await dbController.executeQuery(sql, values);
         
-        if (results.length > 0) {
-            
-            return {
-                status: 1,
-                data: results[0]
-            }    
+        return results[0];
         
-        } else {
-            
-            return {
-                status: -1,
-                message: "Credenciales invalidas"
-            };
-
-        }
     } catch (error) {
         console.error('Error executing query:', error);
         return null;

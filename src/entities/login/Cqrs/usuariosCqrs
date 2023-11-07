@@ -1,4 +1,5 @@
 const usuariosDao = require('../Dao/usuariosDao');
+const UsuarioPublicViewModel = require('../ViewModels/UsuarioPublicViewModel');
 
 class usuariosCqrs {
 
@@ -105,9 +106,37 @@ class usuariosCqrs {
         }
     }
 
-    async restablecerContrasenia(usuario) {
+    async validarUsuario(usuario) {
     
+    const resultBucarUsuario = await usuariosDao.buscarPorCorreo(usuario);
+
+    if (resultBucarUsuario) {
         
+        if(resultBucarUsuario.status === 0){
+            return {
+                status: 0,
+                message: 'Usuario inhabilitado'
+            };
+        }
+        let resultViewModel = new UsuarioPublicViewModel.constructor(resultBucarUsuario.user_id,resultBucarUsuario.name,resultBucarUsuario.user_type);
+        return {
+            status: 1,
+            data: {
+                id: resultViewModel[0],
+                name: resultViewModel[1],
+                access: resultViewModel[2]
+            }
+        }    
+    
+    } else {
+        
+        return {
+            status: -1,
+            message: "Credenciales invalidas"
+        };
+
+    }
+
     }
 }
 module.exports = new usuariosCqrs();

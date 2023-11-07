@@ -1,18 +1,14 @@
-const dbController = require('../../../../DBController');
+// const dbController = require('../../../../DBController');
+const usuariosAppservice = require('../appService/usuariosAppservice');
 class loginController {
   async post(req, res) {
-    const usuario = req.body.usuario;
-    const contrasena = req.body.contrasena;
-    const sql = `SELECT * FROM libreriautl.users WHERE user = ? AND password = ?`;
-    const values = [usuario, contrasena];
+    
+    const usuario = req.body;
+    const result = await usuariosAppservice.buscarUsuarioPorCorreo(usuario);
+    res.status(201).json(result);
+    
     try {
-      const results = await dbController.executeQuery(sql, values);
-      // console.log(results);
-      if (results.length > 0) {
-        res.send(true);  
-      }else{
-        res.send(false);
-      }       
+       
     } catch (error) {
       console.error('Error executing query:', error);
       res.status(500).send('Error executing query');
