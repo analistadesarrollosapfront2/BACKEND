@@ -1,23 +1,15 @@
-const dbController = require('../../../../DBController');
+const librosAppService = require('../appService/librosAppService');
 
 class InsertarLibrosController {
   async post(req, res) {
-    const { title, language, genre, editorial, status, file } = req.body;
-    // console.log(file.length);
-    // console.log(file);
-    const sql = `
-      INSERT INTO libreriautl.libros (title, language, genre, editorial, status, file)
-      VALUES (?, ?, ?, ?, ?, ?)
-    `;
-    const values = [title, language, genre, editorial, status, file];
-
+    
     try {
-      const result = await dbController.executeQuery(sql, values);
-      console.log('Libro registrado:', result);
-      res.status(201).json({ message: 'Libro registrado correctamente' });
+      const registrarLibros = await librosAppService.registrarLibros(req.body);
+      res.status(201).json(registrarLibros);
+
     } catch (error) {
-      console.error('Error al registrar el libro:', error);
-      res.status(500).json({ message: 'Error al registrar el libro' });
+      console.error('Error interno del servidor:', error);
+      res.status(500).json({ message: 'Error interno del servidor' });
     }
   }
 }

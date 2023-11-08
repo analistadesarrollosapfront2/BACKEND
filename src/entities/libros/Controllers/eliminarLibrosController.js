@@ -1,22 +1,14 @@
-const dbController = require('../../../../DBController');
+const librosAppService = require('../appService/librosAppService');
 
 class EliminarLibrosController {
   async post(req, res) {
-    const { id } = req.body;
-    // console.log(req.body);
-    const sql = `
-      DELETE FROM libreriautl.libros
-      WHERE id = ?
-    `;
-    const values = [id];
-
     try {
-      const result = await dbController.executeQuery(sql, values);
-      console.log('Libro eliminado:', result);
-      res.status(200).json({ message: 'Libro eliminado correctamente' });
+      const eliminarLibros = await librosAppService.eliminarLibros(req.body);
+      res.status(201).json(eliminarLibros);
+
     } catch (error) {
-      console.error('Error al eliminar el libro:', error);
-      res.status(500).json({ message: 'Error al eliminar el libro' });
+      console.error('Error interno del servidor:', error);
+      res.status(500).json({ message: 'Error interno del servidor' });
     }
   }
 }
