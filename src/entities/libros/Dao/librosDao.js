@@ -77,5 +77,23 @@ class librosDao {
         }
     }
 
+    async viewLibro(libro) {
+        
+        try {
+            const { id } = libro;
+            const sql = `
+            SELECT * FROM libreriautl.libros WHERE id = ?;
+            `;
+            const values = [id];
+
+            const result = await dbController.executeQuery(sql, values);
+            return result[0]
+        
+        } catch (error) {
+            console.error('Error al consultar el libro:', error);
+            return { status: -1, message: 'Error al consultar el libro' };
+        }
+    }
+
 }
 module.exports = new librosDao();

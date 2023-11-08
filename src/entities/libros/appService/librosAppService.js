@@ -1,6 +1,4 @@
 const librosCqrs = require('../Cqrs/librosCqrs');
-// const usuariosDao = require('../Dao/usuariosDao');
-// const UsuarioPublicViewModel = require('../ViewModels/UsuarioPublicViewModel');
 
 class librosAppService {
 
@@ -13,7 +11,7 @@ class librosAppService {
     
         } catch (error) {
           console.error('Error executing query:', error);
-          res.status(500).send('Error al insertar usuario');
+          res.status(500).send('Error al insertar el libro');
         }      
     }
 
@@ -26,7 +24,7 @@ class librosAppService {
     
         } catch (error) {
           console.error('Error executing query:', error);
-          res.status(500).send('Error al insertar usuario');
+          res.status(500).send('Error al actualizar el libro');
         }      
     }
 
@@ -39,7 +37,20 @@ class librosAppService {
     
         } catch (error) {
           console.error('Error executing query:', error);
-          res.status(500).send('Error al insertar usuario');
+          res.status(500).send('Error al eliminar el libro');
+        }      
+    }
+
+    async vistaLibros(libro) {
+      
+        try {
+    
+            const resul = await librosCqrs.vistaLibros(libro);
+            return resul;
+    
+        } catch (error) {
+          console.error('Error executing query:', error);
+          res.status(500).send('Error al modificar la visa');
         }      
     }
 

@@ -5,11 +5,22 @@ const librosController = require('./Controllers/librosController');
 const RecuperarLibrosController = require('./Controllers/recuperarLibrosController');
 const editarLibrosController = require('./Controllers/editarLibrosController');
 const eliminarLibrosController = require('./Controllers/eliminarLibrosController');
+const ViewLibrosController = require('./Controllers/viewLibrosController');
 
-router.post('/', async (req, res) => {
+  router.post('/', async (req, res) => {
     try {
       // console.log("Vammos a insertar");
       await InsertarLibrosController.post(req, res);
+    } catch (error) {
+      console.error('Error in route handler:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+
+  router.post('/view', async (req, res) => {
+    try {
+      
+      await ViewLibrosController.post(req, res);
     } catch (error) {
       console.error('Error in route handler:', error);
       res.status(500).send('Internal Server Error');
