@@ -1,5 +1,6 @@
 const librosCqrs = require('../Cqrs/librosCqrs');
-
+const librosDao = require('../Dao/librosDao');
+const LibroViewModel = require('../ViewModel/LibroViewModel');
 class librosAppService {
 
     async registrarLibros(libro) {
@@ -45,8 +46,14 @@ class librosAppService {
       
         try {
     
-            const resul = await librosCqrs.vistaLibros(libro);
-            return resul;
+            let resultSelect = await librosDao.viewLibro(libro);
+            let resultViewModel = new LibroViewModel.constructor(resultSelect.id, resultSelect.title, resultSelect.editorial);
+            console.log("DESDE APPSERVICE");
+            return {
+                identificador: resultViewModel[0],
+                name: resultViewModel[1],
+                edit: resultViewModel[2]
+            };
     
         } catch (error) {
           console.error('Error executing query:', error);
